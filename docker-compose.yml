@@ -1,0 +1,15 @@
+web:
+  build: web
+  environment:
+    VIRTUAL_HOST: "*/*"
+webapi:
+  build: webapi
+  environment:
+    VIRTUAL_HOST: "*/api, */api/*"
+lb:
+  image: tutum/haproxy
+  links:
+    - web
+    - webapi
+  ports:
+    - "80:80"
