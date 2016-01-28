@@ -6,27 +6,25 @@
   "tooling": {
     "defaultNamespace": "webapi"
   },
-
   "dependencies": {
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
     "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Configuration.FileProviderExtensions" : "1.0.0-rc1-final",
+    "Microsoft.Extensions.Configuration.FileProviderExtensions": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Logging.Debug" : "1.0.0-rc1-final",
-    "GenFu": "1.0.4"
+    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
+    "GenFu": "1.0.4",
+    "StackExchange.Redis": "1.1.553-alpha",
+    "Newtonsoft.Json": "8.0.2"
   },
-
   "commands": {
-    "web": "Microsoft.AspNet.Server.Kestrel --server.urls http://0.0.0.0:5000"
+    "web": "Microsoft.AspNet.Server.Kestrel --server.urls http://0.0.0.0:5001"
   },
-
   "frameworks": {
-    "dnxcore50": { }
+    "dnxcore50": {}
   },
-
   "exclude": [
     "wwwroot",
     "node_modules",
