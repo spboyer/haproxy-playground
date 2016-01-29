@@ -15,7 +15,7 @@ namespace webapi.Controllers
 
         public HeroesController()
         {
-            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("192.168.99.100:32772");
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("redis");
             _db = redis.GetDatabase();
 
             LoadHeroes();
