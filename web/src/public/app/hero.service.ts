@@ -1,10 +1,23 @@
 import {Hero} from './hero';
-import {HEROES} from './mock-heroes';
+//import {HEROES} from './mock-heroes';
 import {Injectable} from 'angular2/core';
+import { Http, Response } from 'angular2/http';
+import { Observable, Subscription } from 'rxjs';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class HeroService {
-  getHeroes() {
+    constructor(private _http: Http) { }
+
+    getHeroes() {
+    let observable = this._http.get('api/heroes')
+      .map(function(response: Response) {
+        return <Hero[]>response.json();
+      });
+    return observable;
+  }
+
+/*  getHeroes() {
     return Promise.resolve(HEROES);
   }
 
@@ -13,7 +26,7 @@ export class HeroService {
     return new Promise<Hero[]>(resolve =>
       setTimeout(()=>resolve(HEROES), 2000) // 2 seconds
     );
-  }
+  }*/
 }
 
 /*

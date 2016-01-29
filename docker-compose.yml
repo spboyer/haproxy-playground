@@ -6,7 +6,6 @@ webapi:
   build: webapi
   environment:
     VIRTUAL_HOST: "*/api, */api/*"
-    ASPNET_ENV: Development
   links:
     - redis
 redis:

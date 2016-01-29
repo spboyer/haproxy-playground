@@ -2,6 +2,8 @@ import {Component, OnInit} from 'angular2/core';
 import {Hero} from './hero';
 import {HeroDetailComponent} from './hero-detail.component';
 import {HeroService} from './hero.service';
+import { HTTP_PROVIDERS } from 'angular2/http';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'my-app',
@@ -66,17 +68,19 @@ import {HeroService} from './hero.service';
     }
   `],
   directives: [HeroDetailComponent],
-  providers: [HeroService]
+  providers: [HTTP_PROVIDERS, HeroService]
 })
 export class AppComponent implements OnInit {
   public title = 'Tour of Heroes';
-  public heroes: Hero[];
+  public heroes: Observable<Hero[]>;
   public selectedHero: Hero;
 
   constructor(private _heroService: HeroService) { }
 
   getHeroes() {
-    this._heroService.getHeroes().then(heroes => this.heroes = heroes);
+      this.selectedHero = undefined;
+
+      this._heroService.getHeroes();
   }
 
   ngOnInit() {
