@@ -1,12 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using webapi.Model;
 using GenFu;
 using StackExchange.Redis;
-using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -50,7 +46,7 @@ namespace webapi.Controllers
             if (exists)
             {
                 var item = _db.StringGet(heroId);
-                hero = new TourHero()
+                var hero = new TourHero();
                 hero.Id = id;
                 hero.Name = item;
 
