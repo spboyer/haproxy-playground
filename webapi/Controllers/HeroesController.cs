@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Microsoft.AspNet.Mvc;
 using webapi.Model;
 using GenFu;
-using StackExchange.Redis;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,14 +10,9 @@ namespace webapi.Controllers
     [Route("api/[controller]")]
     public class HeroesController : Controller
     {
-        private IDatabase _db;
-
         public HeroesController()
         {
-            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("redis:6379");
-            _db = redis.GetDatabase();
 
-            LoadHeroes();
         }
 
         // GET: api/heroes
