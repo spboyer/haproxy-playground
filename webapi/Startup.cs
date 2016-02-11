@@ -3,11 +3,15 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using webapi.Common;
 
 namespace webapi
 {
     public class Startup
     {
+
+        public IConfigurationRoot Configuration { get; set; }
+
         public Startup(IHostingEnvironment env)
         {
             // Set up configuration sources.
@@ -17,13 +21,16 @@ namespace webapi
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; set; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             services.AddMvc();
+
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            // Add Storage Service
+            services.AddSingleton<Common.IStorage, Common.Storage>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,10 +1,19 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.OptionsModel;
+using webapi.Model;
+using GenFu;
 
 namespace webapi.Common
 {
     public class Storage : IStorage
     {
+        private IOptions<AppSettings> Settings;
+        public Storage(IOptions<AppSettings> appSettings)
+        {
+            Settings = appSettings;
+        }
+
         public async Task<int> AddItemToArray(string key, string item)
         {
             var result = await DoCommand("RPUSH", key, item);
@@ -28,9 +37,9 @@ namespace webapi.Common
            await DoCommand("SET", key, item);
         }
 
-        public async Task<bool> KeyExists(string key)
+        public bool KeyExists(string key)
         {
-            var result = await DoCommand("EXISTS", key);
+            var result = DoCommand("EXISTS", key).Result;
             return Newtonsoft.Json.JsonConvert.DeserializeObject<EXISTS_Item>(result).EXISTS == 1;
         }
 
@@ -38,7 +47,7 @@ namespace webapi.Common
         {
             var client = new HttpClient();
 
-            var url = string.Format("http://{0}/{1}/{2}/{3}/{4}", "192.168.99.100:7379", command, key, fromIndex.ToString(), toIndex.ToString());
+            var url = string.Format("http://{0}/{1}/{2}/{3}/{4}", Settings.Value.RedisServer + ":" + Settings.Value.RedisPort, command, key, fromIndex.ToString(), toIndex.ToString());
 
             var response = await client.GetAsync(url);
 
@@ -48,7 +57,7 @@ namespace webapi.Common
         {
             var client = new HttpClient();
 
-            var url = string.Format("http://{0}/{1}/{2}", "192.168.99.100:7379", command, key);
+            var url = string.Format("http://{0}/{1}/{2}", Settings.Value.RedisServer + ":" + Settings.Value.RedisPort, command, key);
 
             if (item != null)
             {
@@ -58,6 +67,23 @@ namespace webapi.Common
             var response = await client.GetAsync(url);
 
             return await response.Content.ReadAsStringAsync();
+        }
+
+        public void PrimeData()
+        {
+            var exists = KeyExists("heroes");
+            if (!exists)
+            {
+                var heroes = A.ListOf<Hero>();
+
+                heroes.ForEach(async h =>
+                {
+                    if (!string.IsNullOrWhiteSpace(h.SuperName))
+                        await AddItemToArray("heroes", h.SuperName);
+                });
+
+                SetItem("heroes", "true");
+            }
         }
 
         private class GET_Item
@@ -87,6 +113,7 @@ namespace webapi.Common
         void SetItem(string key, string item);
         Task<int> AddItemToArray(string key, string item);
         Task<string[]> GetArray(string key, int fromIndex, int toIndex);
-        Task<bool> KeyExists(string key);
+        bool KeyExists(string key);
+        void PrimeData();
     }
 }

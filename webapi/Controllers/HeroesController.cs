@@ -10,9 +10,12 @@ namespace webapi.Controllers
     [Route("api/[controller]")]
     public class HeroesController : Controller
     {
-        public HeroesController()
-        {
+        Common.IStorage _storage;
 
+        public HeroesController(Common.IStorage storage)
+        {
+            _storage = storage;
+            _storage.PrimeData();
         }
 
         // GET: api/heroes
@@ -20,11 +23,18 @@ namespace webapi.Controllers
         public List<TourHero> Get()
         {
             var heroes = new List<TourHero>();
-            for ( var i = 1; i < 26; i ++ )
+            // for ( var i = 1; i < 26; i ++ )
+            // {
+            //     var name = _storage.GetItem(i.ToString()).Result;
+            //     if (!string.IsNullOrWhiteSpace(name))
+            //         heroes.Add(new TourHero(){Id = i, Name = name});
+            // }
+
+            var items = _storage.GetArray("heroes", 0, 25).Result;
+            
+            for (var i = 0; i < items.Length; i++)
             {
-                var name = _db.StringGet(i.ToString());
-                if (!string.IsNullOrWhiteSpace(name))
-                    heroes.Add(new TourHero(){Id = i, Name = name});
+                heroes.Add(new TourHero(){Id = i, Name = items[i]});
             }
 
             return heroes;
@@ -35,39 +45,19 @@ namespace webapi.Controllers
         public TourHero Get(int id)
         {
             string heroId = id.ToString();
-            var exists = _db.KeyExists(heroId);
+            var exists = _storage.KeyExists(heroId);
 
             if (exists)
             {
-                var item = _db.StringGet(heroId);
+                var item = _storage.GetItem(heroId);
                 var hero = new TourHero();
                 hero.Id = id;
-                hero.Name = item;
+                hero.Name = item.Result;
 
                 return hero;
             }
 
             return null;
-        }
-
-        private void LoadHeroes()
-        {
-            var exists = _db.KeyExists("heroes");
-            if (!exists)
-            {
-                A.Configure<Hero>()
-                    .Fill(p => p.Id)
-                    .WithinRange(1, 25);
-
-                var heroes = A.ListOf<Hero>();
-                heroes.ForEach(h =>
-                {
-                    if (!string.IsNullOrWhiteSpace(h.SuperName))
-                        _db.StringSet(h.Id.ToString(), h.SuperName);
-                });
-
-                _db.StringSet("heroes", true);
-            }
         }
     }
 }
