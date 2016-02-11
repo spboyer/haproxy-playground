@@ -43,6 +43,12 @@ namespace webapi.Common
             return Newtonsoft.Json.JsonConvert.DeserializeObject<EXISTS_Item>(result).EXISTS == 1;
         }
 
+        public bool KeyExists(string collection, string key)
+        {
+            var result = DoCommand("EXISTS", collection, key).Result;
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<EXISTS_Item>(result).EXISTS == 1;
+        }
+
         private async Task<string> DoCommand(string command, string key, int fromIndex, int toIndex)
         {
             var client = new HttpClient();
@@ -82,7 +88,7 @@ namespace webapi.Common
                         await AddItemToArray("heroes", h.SuperName);
                 });
 
-                SetItem("heroes", "true");
+                SetItem("primed", "true");
             }
         }
 
@@ -114,6 +120,7 @@ namespace webapi.Common
         Task<int> AddItemToArray(string key, string item);
         Task<string[]> GetArray(string key, int fromIndex, int toIndex);
         bool KeyExists(string key);
+        bool KeyExists(string collection, string key);
         void PrimeData();
     }
 }

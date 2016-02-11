@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.AspNet.Mvc;
 using webapi.Model;
-using GenFu;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,15 +22,8 @@ namespace webapi.Controllers
         public List<TourHero> Get()
         {
             var heroes = new List<TourHero>();
-            // for ( var i = 1; i < 26; i ++ )
-            // {
-            //     var name = _storage.GetItem(i.ToString()).Result;
-            //     if (!string.IsNullOrWhiteSpace(name))
-            //         heroes.Add(new TourHero(){Id = i, Name = name});
-            // }
+            var items = _storage.GetArray("heroes", 0, -1).Result;
 
-            var items = _storage.GetArray("heroes", 0, 25).Result;
-            
             for (var i = 0; i < items.Length; i++)
             {
                 heroes.Add(new TourHero(){Id = i, Name = items[i]});
@@ -44,15 +36,13 @@ namespace webapi.Controllers
         [HttpGet("{id}")]
         public TourHero Get(int id)
         {
-            string heroId = id.ToString();
-            var exists = _storage.KeyExists(heroId);
-
+            var exists = _storage.KeyExists("heroes", id.ToString());
             if (exists)
             {
-                var item = _storage.GetItem(heroId);
+                var item = _storage.GetArray("heroes", id, id);
                 var hero = new TourHero();
                 hero.Id = id;
-                hero.Name = item.Result;
+                hero.Name = item.Result[0];
 
                 return hero;
             }
