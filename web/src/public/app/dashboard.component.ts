@@ -11,12 +11,13 @@ import { Observable, Subscription } from 'rxjs';
   providers: [HeroService]
 })
 export class DashboardComponent implements OnInit {
-    public heroes: Observable<Hero[]>;
+    public heroes: Array<Hero>;
 
   constructor(private _heroService: HeroService, private _router: Router) { }
 
   ngOnInit() {
-    this._heroService.getHeroes();
+      this._heroService.getHeroes()
+          .subscribe(res => this.heroes = res);
   }
 
   gotoDetail(hero: Hero) {

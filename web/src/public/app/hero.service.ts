@@ -9,10 +9,19 @@ export class HeroService {
     constructor(private _http: Http) { }
 
     getHeroes() {
-    let observable = this._http.get('api/heroes')
-      .map(function(response: Response) {
-        return <Hero[]>response.json();
-      });
-    return observable;
-  }
+        // return an observable
+        return this._http.get('/api/heroes')
+            .map((response) => {
+                return response.json();
+            })
+            .map((tasks: Array<any>) => {
+                let result: Array<Hero> = [];
+                if (tasks) {
+                    tasks.forEach((hero) => {
+                        result.push(new Hero(hero.Id, hero.Name));
+                    });
+                }
+                return result;
+            });
+    }
 }

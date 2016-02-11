@@ -13,14 +13,14 @@ import { Observable, Subscription } from 'rxjs';
   directives: [HeroDetailComponent]
 })
 export class HeroesComponent implements OnInit {
-  public heroes: Observable<Hero[]>;
+  public heroes: Array<Hero>;
   public selectedHero: Hero;
 
   constructor(private _heroService: HeroService, private _router: Router) { }
 
   getHeroes() {
     this.selectedHero = undefined;
-    //this.heroes = [];
+    this.heroes = undefined;
 
     this._heroService.getHeroes();
 
@@ -32,7 +32,8 @@ export class HeroesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.heroes = this.getHeroes();
+      this._heroService.getHeroes()
+          .subscribe(res => this.heroes = res);
   }
 
   onSelect(hero: Hero) {
