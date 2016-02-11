@@ -14,10 +14,10 @@ export class HeroService {
             .map((response) => {
                 return response.json();
             })
-            .map((tasks: Array<any>) => {
+            .map((heroes: Array<any>) => {
                 let result: Array<Hero> = [];
-                if (tasks) {
-                    tasks.forEach((hero) => {
+                if (heroes) {
+                    heroes.forEach((hero) => {
                         result.push(new Hero(hero.Id, hero.Name));
                     });
                 }
