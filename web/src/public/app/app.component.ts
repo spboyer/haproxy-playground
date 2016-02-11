@@ -4,6 +4,7 @@ import {HeroesComponent} from './heroes.component';
 import {HeroDetailComponent} from './hero-detail.component';
 import {DashboardComponent} from './dashboard.component';
 import { HeroService } from './hero.service';
+import { HTTP_PROVIDERS } from 'angular2/http';
 
 @Component({
   selector: 'my-app',
@@ -17,7 +18,7 @@ import { HeroService } from './hero.service';
   `,
   styleUrls: ['app/app.component.css'],
   directives: [ROUTER_DIRECTIVES],
-  providers: [HeroService, ROUTER_PROVIDERS]
+  providers: [HeroService, ROUTER_PROVIDERS, HTTP_PROVIDERS]
 })
 @RouteConfig([
   { path: '/dashboard', name: 'Dashboard', component: DashboardComponent, useAsDefault: true },
