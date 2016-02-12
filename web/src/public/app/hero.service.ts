@@ -1,8 +1,7 @@
 import {Hero} from './hero';
 import {Injectable} from 'angular2/core';
-import { Http, Response } from 'angular2/http';
-import { Observable, Subscription } from 'rxjs';
-import 'rxjs/add/operator/map';
+import { Http } from 'angular2/http';
+import 'rxjs/Rx';
 
 @Injectable()
 export class HeroService {

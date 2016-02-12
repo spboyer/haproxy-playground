@@ -18,15 +18,6 @@ export class HeroesComponent implements OnInit {
 
   constructor(private _heroService: HeroService, private _router: Router) { }
 
-  getHeroes() {
-    this.selectedHero = undefined;
-    this.heroes = undefined;
-
-    this._heroService.getHeroes();
-
-    return this.heroes;
-  }
-
   gotoDetail() {
     this._router.navigate(['HeroDetail', { id: this.selectedHero.id }]);
   }

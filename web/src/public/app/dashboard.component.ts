@@ -7,8 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 @Component({
   selector: 'my-dashboard',
   templateUrl: 'app/dashboard.component.html',
-  styleUrls: ['app/dashboard.component.css'],
-  providers: [HeroService]
+  styleUrls: ['app/dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
     public heroes: Array<Hero>;
