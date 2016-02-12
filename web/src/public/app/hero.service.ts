@@ -13,15 +13,15 @@ export class HeroService {
         return this._http.get('/api/heroes')
             .map((response) => {
                 return response.json();
-            })
-            .map((heroes: Array<any>) => {
-                let result: Array<Hero> = [];
-                if (heroes) {
-                    heroes.forEach((hero) => {
-                        result.push(new Hero(hero.Id, hero.Name));
-                    });
-                }
-                return result;
             });
+            // .map((heroes: Array<any>) => {
+            //     let result: Array<Hero> = [];
+            //     if (heroes) {
+            //         heroes.forEach((hero) => {
+            //             result.push(new Hero(hero.Id, hero.Name));
+            //         });
+            //     }
+            //     return result;
+            // });
     }
 }
