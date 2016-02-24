@@ -1,5 +1,7 @@
 # haproxy-playground
 
+Blog Post Related to this repo: http://www.tattoocoder.com/legion-of-heroes-haproxy-nginx-angular2-aspnetcore-redis-docker/
+
 * haproxy
     * routes `/api/*` to ASP.NET container
     * `*/*` routes to nginx Angular 2.0 application
