@@ -13,7 +13,8 @@ Blog Post Related to this repo: http://www.tattoocoder.com/legion-of-heroes-hapr
 ```
  git clone repo
  cd where-ever-you-cloned-it
+ export DEFAULT_SSL_CERT="$(cat self-signed.pem)"
  docker-compose up -d
 ```
-Browse to http://`<docker-machine-ip>`/dashboard, default http://192.168.99.100/dashboard
+Browse to https://`<docker-machine-ip>`/dashboard, default https://192.168.99.100/dashboard
 
