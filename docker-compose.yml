@@ -1,12 +1,14 @@
 web:
   build: web
   environment:
-    VIRTUAL_HOST: "https://*/*"
+    VIRTUAL_HOST: "https://*/*, http://*/*"
+    FORCE_SSL: 1
 webapi:
   build: webapi
   environment:
     VIRTUAL_HOST: "https://*/api, https://*/api/*"
     ASPNET_ENV: Development
+    FORCE_SSL: 1
   links:
     - redis
 redis:
