@@ -3,12 +3,14 @@ web:
   environment:
     VIRTUAL_HOST: "https://*/*, http://*/*"
     FORCE_SSL: 1
+    EXTRA_SETTINGS: "http-response add-header X-Frame-Options SAMEORIGIN,http-response add-header X-Xss-Protection 1;mode=block"
 webapi:
   build: webapi
   environment:
     VIRTUAL_HOST: "https://*/api, https://*/api/*"
     ASPNET_ENV: Development
     FORCE_SSL: 1
+    EXTRA_SETTINGS: "http-response add-header X-Frame-Options SAMEORIGIN,http-response add-header X-Xss-Protection 1;mode=block"
   links:
     - redis
 redis:
