@@ -1,32 +1,48 @@
-web:
-  build: web
-  environment:
-    VIRTUAL_HOST: "https://*/*, http://*/*"
-    FORCE_SSL: 1
-    EXTRA_SETTINGS: "http-response add-header X-Frame-Options SAMEORIGIN,http-response add-header X-Xss-Protection 1;mode=block"
-webapi:
-  build: webapi
-  environment:
-    VIRTUAL_HOST: "https://*/api, https://*/api/*"
-    ASPNET_ENV: Development
-    FORCE_SSL: 1
-    EXTRA_SETTINGS: "http-response add-header X-Frame-Options SAMEORIGIN,http-response add-header X-Xss-Protection 1;mode=block"
-  links:
-    - redis
-redis:
-  image: anapsix/webdis
-  environment:
-    LOCAL_REDIS: "true"
-  ports:
-    - "7379:7379"
-lb:
-  image: tutum/haproxy
-  links:
-    - web
-    - webapi
-  environment: 
-    - DEFAULT_SSL_CERT
-    - SSL_BIND_CIPHERS=ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256
-  ports:
-    - "80:80"
-    - "443:443"
+version: '2'
+
+services:
+  web:
+    build: web
+    environment:
+      VIRTUAL_HOST: "https://*/*, http://*/*"
+      FORCE_SSL: 1
+    networks:
+      - backend
+  webapi:
+    build: webapi
+    environment:
+      VIRTUAL_HOST: "https://*/api, https://*/api/*"
+      ASPNET_ENV: Development
+      FORCE_SSL: 1
+    links:
+      - redis
+    networks:
+      - backend
+  redis:
+    image: anapsix/webdis
+    environment:
+      LOCAL_REDIS: "true"
+    ports:
+      - "7379:7379"
+    networks:
+      - backend
+  lb:
+    image: tutum/haproxy
+    links:
+      - web
+      - webapi
+    environment: 
+      - DEFAULT_SSL_CERT
+      - SSL_BIND_CIPHERS=ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256
+      - DEFAULT_EXTRA_SETTINGS="http-response add-header X-Frame-Options SAMEORIGIN,http-response add-header X-Xss-Protection 1;mode=block"
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - backend
+      - frontend
+networks:
+  frontend: 
+    driver: bridge
+  backend:
+    driver: bridge
