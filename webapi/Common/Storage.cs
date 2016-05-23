@@ -1,8 +1,8 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.OptionsModel;
 using webapi.Model;
 using GenFu;
+using Microsoft.Extensions.Options;
 
 namespace webapi.Common
 {
