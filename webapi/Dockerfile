@@ -1,8 +1,9 @@
-FROM microsoft/aspnet:1.0.0-rc1-update1-coreclr
+FROM microsoft/dotnet:1.0.0-rc2-core
 
 COPY . /app
 WORKDIR /app
-RUN ["dnu", "restore"]
+RUN ["dotnet", "restore"]
 
+ENV ASPNETCORE_SERVER.URLS http://*:5001
 EXPOSE 5001/tcp
-ENTRYPOINT ["dnx", "-p", "project.json", "web"]
+ENTRYPOINT ["dotnet", "run"]
