@@ -4,7 +4,7 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "start": "ng server",
+    "start": "concurrently --kill-others \"json-server --watch db.json --read-only --delay 200\" \"ng serve\"",
     "postinstall": "typings install",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
@@ -29,6 +29,7 @@
   "devDependencies": {
     "angular-cli": "^1.0.0-beta.5",
     "codelyzer": "0.0.19",
+    "concurrently": "^2.1.0",
     "ember-cli-inject-live-reload": "^1.4.0",
     "jasmine-core": "^2.4.1",
     "jasmine-spec-reporter": "^2.4.0",
