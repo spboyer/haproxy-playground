@@ -1,0 +1,104 @@
+{
+  "heroes": [
+    {
+      "id": 0,
+      "name": "Chloe Lo-fi"
+    },
+    {
+      "id": 1,
+      "name": "Katherine Wolf"
+    },
+    {
+      "id": 2,
+      "name": "Zachary A"
+    },
+    {
+      "id": 3,
+      "name": "Dalton Portland"
+    },
+    {
+      "id": 4,
+      "name": "William Pop-up"
+    },
+    {
+      "id": 5,
+      "name": "Makayla Raw"
+    },
+    {
+      "id": 6,
+      "name": "Juan Gentrify"
+    },
+    {
+      "id": 7,
+      "name": "Antonio Life"
+    },
+    {
+      "id": 8,
+      "name": "Jack Vinyl"
+    },
+    {
+      "id": 9,
+      "name": "Isabella Master"
+    },
+    {
+      "id": 10,
+      "name": "Alexandria Pack"
+    },
+    {
+      "id": 11,
+      "name": "Miguel Marfa"
+    },
+    {
+      "id": 12,
+      "name": "Nicole High"
+    },
+    {
+      "id": 13,
+      "name": "Jenna Beer"
+    },
+    {
+      "id": 14,
+      "name": "Kaitlyn Raw"
+    },
+    {
+      "id": 15,
+      "name": "Vanessa Odd"
+    },
+    {
+      "id": 16,
+      "name": "Autumn Freegan"
+    },
+    {
+      "id": 17,
+      "name": "Sean A"
+    },
+    {
+      "id": 18,
+      "name": "Isabel Carles"
+    },
+    {
+      "id": 19,
+      "name": "Natalie Bespoke"
+    },
+    {
+      "id": 20,
+      "name": "Juan Probably"
+    },
+    {
+      "id": 21,
+      "name": "Kyle Fact"
+    },
+    {
+      "id": 22,
+      "name": "Allison Marfa"
+    },
+    {
+      "id": 23,
+      "name": "Shelby Carles"
+    },
+    {
+      "id": 24,
+      "name": "Emma High"
+    }
+  ]
+}
