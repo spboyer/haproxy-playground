@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   moduleId: module.id,
@@ -6,6 +7,13 @@ import { Component } from '@angular/core';
   templateUrl: 'toh.component.html',
   styleUrls: ['toh.component.css']
 })
-export class TohAppComponent {
-  title = 'toh works!';
+export class TohAppComponent implements OnInit {
+  title = 'Tour of Heroes';
+
+  constructor(private _title: Title) {
+  }
+
+  ngOnInit() {
+    this._title.setTitle(this.title);
+  }
 }
