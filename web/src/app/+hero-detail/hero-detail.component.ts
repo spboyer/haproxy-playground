@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { RouteParams, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { Component, Input } from '@angular/core';
+import { OnActivate, Router, RouteSegment, ROUTER_DIRECTIVES } from '@angular/router';
 import { Hero, HeroService } from '../shared';
 import { Observable, Subscription } from 'rxjs';
 
@@ -10,15 +10,19 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['hero-detail.component.css'],
   directives: [ROUTER_DIRECTIVES]
 })
-export class HeroDetailComponent implements OnInit {
+export class HeroDetailComponent implements OnActivate {
   @Input() hero: Hero;
 
-  constructor(private _heroService: HeroService, private _routeParams: RouteParams) {
+  constructor(private _heroService: HeroService) {
   }
 
-  ngOnInit() {
-    let id = +this._routeParams.get('id');
+  routerOnActivate(curr: RouteSegment) {
+    let id = +curr.getParam('id');
     this._heroService.getHero(id)
       .subscribe(hero => this.hero = hero);
+  }
+
+  goBack() {
+    window.history.back();
   }
 }
