@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router-deprecated';
+import { Router } from '@angular/router';
 import { Hero, HeroService } from '../shared';
 import { Observable, Subscription } from 'rxjs';
 
@@ -21,6 +21,6 @@ export class DashboardComponent implements OnInit {
   }
 
   gotoDetail(hero: Hero) {
-    this._router.navigate(['HeroDetail', { id: hero.id }]);
+    this._router.navigate(['/detail', hero.id ]);
   }
 }
