@@ -6,6 +6,7 @@ import { HeroService } from './shared';
 import { DashboardComponent } from './+dashboard';
 import { HeroesComponent } from './+heroes';
 import { HeroDetailComponent } from './+hero-detail';
+import { NotFoundComponent } from './+not-found';
 
 @Component({
   moduleId: module.id,
@@ -18,7 +19,8 @@ import { HeroDetailComponent } from './+hero-detail';
 @Routes([
   {path: '/dashboard', component: DashboardComponent},
   {path: '/heroes', component: HeroesComponent},
-  {path: '/detail/:id', component: HeroDetailComponent}
+  {path: '/detail/:id', component: HeroDetailComponent},
+  {path: '/*', component: NotFoundComponent}
 ])
 export class TohAppComponent implements OnInit {
   title = 'Tour of Heroes';
@@ -28,6 +30,6 @@ export class TohAppComponent implements OnInit {
 
   ngOnInit() {
     this._title.setTitle(this.title);
-    this._router.navigate(['/dashboard']);
+    //this._router.navigate(['/dashboard']);
   }
 }
