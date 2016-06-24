@@ -4,7 +4,7 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "start": "ng serve",
+    "start": "concurrently --kill-others \"json-server --watch db.json --read-only --delay 200\" \"ng serve\"",
     "postinstall": "typings install",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
@@ -29,9 +29,11 @@
   "devDependencies": {
     "angular-cli": "1.0.0-beta.6",
     "codelyzer": "0.0.23",
+    "concurrently": "^2.1.0",
     "ember-cli-inject-live-reload": "1.4.0",
     "jasmine-core": "2.4.1",
     "jasmine-spec-reporter": "2.5.0",
+    "json-server": "^0.8.14",
     "karma": "0.13.22",
     "karma-chrome-launcher": "1.0.1",
     "karma-jasmine": "1.0.2",
