@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ROUTER_DIRECTIVES } from '@angular/router';
+import { HTTP_PROVIDERS } from '@angular/http';
 import { HeroService } from './shared';
 
 @Component({
@@ -8,7 +9,7 @@ import { HeroService } from './shared';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  providers: [HeroService],
+  providers: [HTTP_PROVIDERS, HeroService],
   directives: [ROUTER_DIRECTIVES]
 })
 export class AppComponent {
