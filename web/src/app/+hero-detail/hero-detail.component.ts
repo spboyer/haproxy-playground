@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { OnActivate, Router, RouteSegment, ROUTER_DIRECTIVES } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 import { Hero, HeroService } from '../shared';
 import { Observable, Subscription } from 'rxjs';
 
@@ -10,16 +10,22 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['hero-detail.component.css'],
   directives: [ROUTER_DIRECTIVES]
 })
-export class HeroDetailComponent implements OnActivate {
-  @Input() hero: Hero;
+export class HeroDetailComponent implements OnInit, OnDestroy {
+  hero: Hero;
+  private sub: Subscription;
 
-  constructor(private _heroService: HeroService) {
+  constructor(private _heroService: HeroService, private route: ActivatedRoute) {
   }
 
-  routerOnActivate(curr: RouteSegment) {
-    let id = +curr.getParam('id');
-    this._heroService.getHero(id)
-      .subscribe(hero => this.hero = hero);
+  ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      let id = +params['id'];
+      this._heroService.getHero(id).subscribe(hero => this.hero = hero);
+    });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   goBack() {
