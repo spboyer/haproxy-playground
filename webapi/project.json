@@ -25,8 +25,9 @@
     "Microsoft.Extensions.Configuration.Binder": "1.0.0",
     "Microsoft.Extensions.Logging": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
+    "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.AspNetCore.StaticFiles": "1.0.0",
-    "GenFu": "1.1.1",
+    //"GenFu": "1.1.1",
     "StackExchange.Redis": "1.1.604-alpha",
     "Newtonsoft.Json": "9.0.1",
     "System.Net.Http": "4.1.0"
