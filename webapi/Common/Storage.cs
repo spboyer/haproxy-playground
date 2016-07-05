@@ -1,8 +1,9 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using webapi.Model;
-using GenFu;
+//using GenFu;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 
 namespace webapi.Common
 {
@@ -80,12 +81,19 @@ namespace webapi.Common
             var exists = KeyExists("heroes");
             if (!exists)
             {
-                var heroes = A.ListOf<Hero>();
-
-                heroes.ForEach(async h =>
-                {
-                    if (!string.IsNullOrWhiteSpace(h.SuperName))
-                        await AddItemToArray("heroes", h.SuperName);
+                // var heroes = A.ListOf<Hero>();
+                
+                // heroes.ForEach(async h =>
+                // {
+                //     if (!string.IsNullOrWhiteSpace(h.SuperName))
+                //         await AddItemToArray("heroes", h.SuperName);
+                // });
+                var heroes = new List<string> {"Luke Pour-over","Victor Heard","Marissa A","Caleb Lo-fi","Grace Park","Nicole Probably","Jessica Pour-over","Melissa Pork","Luke Hella","Sophia Week","Cassidy Trust","Jasmine Haven't","Dylan Bag","Jennifer High","Aaliyah Life","Victorina Hella","Alexander Future","Gabriel Post-ironic","John Authentic","Sydney Hand","Kimberly Readymade","Matthew Of","Olivia Locavore","Shalonda Keffiyeh","Jasmine On"};
+                heroes.ForEach(async h => {
+                    if (!string.IsNullOrWhiteSpace(h))
+                    {
+                        await AddItemToArray("heroes", h);
+                    }
                 });
 
                 SetItem("primed", "true");
